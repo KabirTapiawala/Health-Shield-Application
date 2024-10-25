@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link your CSS file here -->
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <img src="logo.png" alt="Logo">
+        <ul class="menu">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Calendar</a></li>
+            <li><a href="#">Inbox</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Prescriptions</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <h2>My Profile</h2>
+            <button>Edit</button>
+        </div>
+
+        <!-- Profile Information -->
+        <div class="profile-info">
+            <h3>Personal Information</h3>
+            <p><strong>Name:</strong> User Name</p>
+            <p><strong>Date of Birth:</strong> 03/04/1996</p>
+            <p><strong>Email:</strong> email@gmail.com</p>
+            <p><strong>Phone Number:</strong> +1 2387428345</p>
+
+            <!-- Pre-existing Conditions -->
+            <div class="section">
+                <div class="section-title">Pre-existing Conditions</div>
+                <div class="section-content">
+                    <p>Speech: None</p>
+                    <p>Physical: None</p>
+                </div>
+            </div>
+
+            <!-- Notifications -->
+            <div class="section notifications">
+                <label>Enable Notifications</label>
+                <div class="toggle-switch">
+                    <input type="checkbox" id="switch" checked>
+                    <label for="switch"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

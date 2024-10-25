@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="profile-styles.css">
+    <title>Medical Profile</title>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo">🛡️</div>
+        <nav>
+            <a href="#" class="nav-item" onclick="showPage('profile')">📊 Dashboard</a>
+            <a href="#" class="nav-item">📅 Calendar</a>
+            <a href="#" class="nav-item">📥 Inbox</a>
+            <a href="#" class="nav-item active" onclick="showPage('profile')">👤 Profile</a>
+            <a href="#" class="nav-item">💊 Prescriptions</a>
+            <a href="#" class="nav-item">🚪 Logout</a>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1>Profile</h1>
+            <div class="user-nav">
+                <div class="lang-select">
+                    EN ▼
+                </div>
+                <span>🔔</span>
+                <div class="avatar"></div>
+                <span>User Name</span>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showPage('profile')">General</button>
+            <button class="tab" onclick="showPage('medical-history')">Medical History</button>
+            <button class="tab" onclick="showPage('documents')">Documents</button>
+        </div>
+
+        <!-- Profile Page -->
+        <div id="profile-page" class="profile-card">
+            <div class="profile-header">
+                <h2>My Profile</h2>
+            </div>
+
+            <div class="profile-info">
+                <div class="profile-avatar"></div>
+                <div>
+                    <h3>User Name</h3>
+                    <p>General Patient</p>
+                    <p>United States</p>
+                </div>
+                <button class="edit-btn">✏️ Edit</button>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">Personal Information</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">Name</div>
+                        <div>User Name</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Date Of Birth</div>
+                        <div>03/04/1996</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Age</div>
+                        <div>56</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Phone Number</div>
+                        <div>+1 2387428345</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Email Address</div>
+                        <div>Email@gmail.com</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Bio</div>
+                        <div>General Patient</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">Pre-existing Diseases</h3>
+                <div class="diseases-grid">
+                    <div class="info-item">
+                        <div class="info-label">Speech</div>
+                        <div>None</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Physical</div>
+                        <div>None</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">General</h3>
+                <div class="general-settings">
+                    <div>
+                        <p>Change Password</p>
+                        <button class="change-password">Change</button>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <div>
+                            <p>Notifications</p>
+                            <p>Enable Notifications</p>
+                        </div>
+                        <div class="toggle-switch"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Documents Page -->
+        <div id="documents-page" style="display: none;">
+            <div class="documents-grid">
+                <div class="document-card">
+                    <img src="/api/placeholder/300/200" alt="Blood report">
+                    <span class="star-icon">⭐</span>
+                    <span class="more-icon">⋮</span>
+                    <h3 class="document-title">Blood report</h3>
+                    <p class="document-date">May 14, 2023, 13:25 PM</p>
+                </div>
+                <div class="document-card">
+                    <img src="/api/placeholder/300/200" alt="Dr. Inglais Prescription">
+                    <span class="star-icon">☆</span>
+                    <span class="more-icon">⋮</span>
+                    <h3 class="document-title">Dr. Inglais Prescription</h3>
+                    <p class="document-date">May 14, 2023, 13:25 PM</p>
+                </div>
+                <div class="document-card">
+                    <img src="/api/placeholder/300/200" alt="Insurance Info">
+                    <span class="star-icon">⭐</span>
+                    <span class="more-icon">⋮</span>
+                    <h3 class="document-title">Insurance Info</h3>
+                    <p class="document-date">May 14, 2023, 13:25 PM</p>
+                </div>
+            </div>
+            <button class="upload-btn">Upload new</button>
+        </div>
+
+<!-- Medical History Page -->
+<div id="medical-history-page" style="display: none;">
+    <div class="history-list">
+        <div class="history-item">
+            <span>August 15, 2023: Strep throat, Treated</span>
+            <button class="history-details" onclick="toggleDetails(this)">Details ▼</button>
+            <div class="details-section">
+                <p>More information about the treatment and medications used for Strep throat.</p>
+            </div>
+        </div>
+        <div class="history-item">
+            <span>August 8, 2022: Covid-19 booster received</span>
+            <button class="history-details" onclick="toggleDetails(this)">Details ▼</button>
+            <div class="details-section">
+                <p>Details about the Covid-19 booster received on this date.</p>
+            </div>
+        </div>
+        <div class="history-item">
+            <span>June 20, 2022: Flu Infection, resolved</span>
+            <button class="history-details" onclick="toggleDetails(this)">Details ▼</button>
+            <div class="details-section">
+                <p>Information regarding the flu infection, treatment, and recovery.</p>
+            </div>
+        </div>
+        <div class="history-item">
+            <span>January 2, 2021: Meningitis shot received</span>
+            <button class="history-details" onclick="toggleDetails(this)">Details ▼</button>
+            <div class="details-section">
+                <p>Details about the Meningitis shot and its importance for health.</p>
+            </div>
+        </div>
+    </div>
+    <button class="add-new-btn">Add New</button>
+</div>
+
+    <script>
+        function toggleDetails(button) {
+        const detailsSection = button.nextElementSibling;
+        const isActive = button.classList.contains('active');
+        
+        // Toggle the button and the corresponding details section
+        if (isActive) {
+            detailsSection.style.display = 'none';
+            button.classList.remove('active');
+            button.textContent = 'Details ▼';
+        } else {
+            detailsSection.style.display = 'block';
+            button.classList.add('active');
+            button.textContent = 'Details ▲';
+        }
+    }
+        
+        // Function to toggle between pages
+        function showPage(page) {
+            // Hide all pages
+            document.getElementById('profile-page').style.display = 'none';
+            document.getElementById('documents-page').style.display = 'none';
+            document.getElementById('medical-history-page').style.display = 'none';
+
+            // Show selected page
+            if (page === 'profile') {
+                document.getElementById('profile-page').style.display = 'block';
+            } else if (page === 'documents') {
+                document.getElementById('documents-page').style.display = 'block';
+            } else if (page === 'medical-history') {
+                document.getElementById('medical-history-page').style.display = 'block';
+            }
+
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            if (page === 'profile') {
+                document.querySelector('.tab:nth-child(1)').classList.add('active');
+            } else if (page === 'medical-history') {
+                document.querySelector('.tab:nth-child(2)').classList.add('active');
+            } else if (page === 'documents') {
+                document.querySelector('.tab:nth-child(3)').classList.add('active');
+            }
+        }
+    </script>
+    
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+/* Example CSS for the layout */
+/* Inside /client/src/App.css or wherever your global styles are defined */
+
+.app {
+  display: flex; /* Use flexbox to layout children side by side */
+}
+
+.sidebar {
+    width: 250px;           /* Fixed width for sidebar */
+    height: 100vh;          /* Full vertical height */
+    background-color: #f0f0f0;
+    padding: 20px;
+  }
+
+.main-content {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    width: 100%;            /* Ensures it takes up full horizontal space */
+    padding: 20px;
+    box-sizing: border-box;  /* Prevents padding from affecting width */
+  }
+  

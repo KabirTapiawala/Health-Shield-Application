@@ -1,0 +1,43 @@
+/* Inside /client/src/components/Sidebar.css */
+.sidebar {
+    background-color: #f4f4f4;
+    width: 250px;
+    padding: 20px;
+    height: 100vh;
+  }
+  
+  .sidebar-logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+  
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .sidebar ul li {
+    margin-bottom: 20px;
+  }
+  
+  .sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+  }
+  
+  .sidebar ul li a:hover {
+    color: #1da1f2;
+  }
+  
+  .logout {
+    margin-top: 40px;
+    background-color: #ff4b5c;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    width: 100%;
+  }
+  

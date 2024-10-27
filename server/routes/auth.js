@@ -1,5 +1,5 @@
 const express = require('express');
-const bcrypt = require('bcryptjs');
+// const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
@@ -9,18 +9,23 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_key';
 // Signup Route
 router.post('/signup', async (req, res) => {
   const { fullName, email, password } = req.body;
+  console.log(password);
 
   try {
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) return res.status(400).json({ message: 'User already exists' });
 
-    // Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // // Hash password
+    // const hashedPassword = await bcrypt.hash(password, 10);
+    // console.log(hashedPassword);
 
     // Create new user
-    const newUser = new User({ fullName, email, password: hashedPassword });
+    console.log(password)
+    const newUser = new User({ fullName, email, password });
     await newUser.save();
+
+    console.log(newUser.password);
 
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
@@ -31,14 +36,19 @@ router.post('/signup', async (req, res) => {
 // Login Route
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
+  console.log('Login attempt with:', req.body);
+
 
   try {
     // Check if user exists
     const user = await User.findOne({ email });
+    console.log(user);
     if (!user) return res.status(400).json({ message: 'Invalid email or password' });
 
     // Check password
-    const isMatch = await bcrypt.compare(password, user.password);
+    // const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = password === user.password;
+    console.log(isMatch);
     if (!isMatch) return res.status(400).json({ message: 'Invalid email or password' });
 
     // Create and send JWT

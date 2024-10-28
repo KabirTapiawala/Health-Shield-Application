@@ -9,7 +9,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_key';
 // Signup Route
 router.post('/signup', async (req, res) => {
   const { fullName, email, password } = req.body;
-  console.log(password);
+//   console.log(password);
 
   try {
     // Check if user already exists
@@ -21,11 +21,11 @@ router.post('/signup', async (req, res) => {
     // console.log(hashedPassword);
 
     // Create new user
-    console.log(password)
+    // console.log(password)
     const newUser = new User({ fullName, email, password });
     await newUser.save();
 
-    console.log(newUser.password);
+    // console.log(newUser.password);
 
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {

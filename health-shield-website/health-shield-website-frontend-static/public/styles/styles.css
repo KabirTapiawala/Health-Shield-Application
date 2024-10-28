@@ -36,7 +36,7 @@ form {
     margin: 0 auto;
 }
 
-input[type="text"], select {
+input[type="text"] {
     padding: 10px;
     font-size: 1em;
     border: 1px solid #ccc;
@@ -44,7 +44,7 @@ input[type="text"], select {
 }
 
 button {
-    background-color: #008080; /* Teal color for the button */
+    background-color: #008080;
     color: #fff;
     border: none;
     padding: 10px;
@@ -55,7 +55,7 @@ button {
 }
 
 button:hover {
-    background-color: #006666; /* Darker teal on hover */
+    background-color: #006666;
 }
 
 .search-results {

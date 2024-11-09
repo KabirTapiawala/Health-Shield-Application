@@ -14,7 +14,7 @@ function LoginPage() {
     e.preventDefault();
     try {
       await login({ email, password });
-      navigate('/profile');
+      navigate('/dashboard');
     } catch (error) {
       console.error(error);
       alert('Login failed');

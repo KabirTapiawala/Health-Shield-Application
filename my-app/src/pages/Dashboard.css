@@ -1,0 +1,10 @@
+/* /src/pages/Dashboard.css */
+.dashboard {
+    padding: 20px;
+  }
+  
+  .main-content {
+    display: flex;
+    gap: 20px;
+  }
+  

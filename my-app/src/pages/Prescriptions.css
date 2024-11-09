@@ -1,0 +1,95 @@
+/* /src/pages/Prescriptions.css */
+
+.prescriptions-page {
+    background-color: #f9fafb;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  header h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .tabs {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .tab {
+    padding: 10px 20px;
+    background-color: #e0e3e7;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+    margin-right: 10px;
+    border: none;
+  }
+  
+  .tab.active {
+    background-color: #3B9AB8;
+    color: #ffffff;
+  }
+  
+  .prescription-list {
+    display: grid;
+    gap: 15px;
+  }
+  
+  .prescription-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .prescription-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .view-details {
+    color: #3B9AB8;
+    font-size: 14px;
+    margin-right: 10px;
+    text-decoration: none;
+  }
+  
+  .renew-button {
+    padding: 8px 15px;
+    background-color: #3B9AB8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .renew-button:hover {
+    background-color: #357a9c;
+  }
+  
+  .success-message, .error-message {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .renewal-details p {
+    font-size: 16px;
+    margin: 5px 0;
+    color: #555;
+  }
+  
+  .renewal-success, .renewal-failure {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  }
+  

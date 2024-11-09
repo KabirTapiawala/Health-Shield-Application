@@ -24,22 +24,55 @@
     background-color: #f4f4f4;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .calendar-grid .day:hover {
-    background-color: #e0e0e0;
   }
   
   .calendar-grid .day.today {
-    background-color: #ffeb3b;
-    color: #000;
-    font-weight: bold;
+    border: 2px solid #3B9AB8;
   }
   
   .calendar-grid .day.selected {
     background-color: #3B9AB8;
     color: #fff;
-    font-weight: bold;
+  }
+  
+  .calendar-grid .day.disabled {
+    background-color: #e0e0e0;
+    color: #aaa;
+    cursor: not-allowed;
+  }
+  
+  .time-slots {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .time-slot-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .time-slot {
+    padding: 10px 20px;
+    background-color: #f4f4f4;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .time-slot.selected {
+    background-color: #3B9AB8;
+    color: #fff;
+  }
+  
+  .confirm-button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #3B9AB8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
   }
   

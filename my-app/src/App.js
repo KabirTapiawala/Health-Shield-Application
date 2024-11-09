@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard';
 import SignupPage from './pages/SignupPage';
 import DirectMessaging from './pages/DirectMessaging';
 import ScheduleAppointment from './pages/ScheduleAppointment'
+import Prescriptions from './pages/Prescriptions'
 import './styles/global.css';
 
 function AppContent() {
@@ -30,6 +31,7 @@ function AppContent() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/inbox" element={<DirectMessaging />} />
           <Route path="/calendar" element={<ScheduleAppointment />} />
+          <Route path="/prescriptions" element={<Prescriptions />} />
           {/* Add other routes later */}
         </Routes>
       </div>

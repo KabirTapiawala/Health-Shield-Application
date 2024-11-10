@@ -1,3 +1,5 @@
+// /server/routes/auth.js
+
 const express = require('express');
 // const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -27,7 +29,7 @@ router.post('/signup', async (req, res) => {
 
     // console.log(newUser.password);
 
-    res.status(201).json({ message: 'User registered successfully' });
+    res.status(201).json({ fullName: fullName, email: email });
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
   }
@@ -52,8 +54,8 @@ router.post('/login', async (req, res) => {
     if (!isMatch) return res.status(400).json({ message: 'Invalid email or password' });
 
     // Create and send JWT
-    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
-    res.json({ token });
+    // const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
+    res.json({ fullName: user.fullName, email: user.email });
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
   }

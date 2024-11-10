@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import './Profile.css';
+import { useAuth } from '../context/AuthContext'; // Import useAuth
+import axios from 'axios';
+
+const API_URL = 'http://localhost:5000/api';
 
 function Profile() {
   const [activeTab, setActiveTab] = useState('profile');
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [editMode, setEditMode] = useState(false); // Track if in edit mode
   const [changePasswordMode, setChangePasswordMode] = useState(false); // Track if in change password mode
+  const { user } = useAuth(); // Get the user from context
 
   // State variables for profile information
   const [profileInfo, setProfileInfo] = useState({
-    name: "User Name",
+    name: user?.fullName || 'User',
     dob: "03/04/1996",
-    phone: "+1 2387428345",
-    email: "Email@gmail.com",
+    phone: "+1 0000000000",
+    email: user?.email || "name@email.com",
     bio: "General Patient",
     speechDisease: "None",
     physicalDisease: "None"
@@ -69,9 +74,25 @@ function Profile() {
     });
   };
 
-  const saveProfileInfo = () => {
+  const saveProfileInfo = async () => {
     setEditMode(false); // Exit edit mode on save
     // Here, you could also add logic to persist the changes to a database
+
+    try {
+      const response = await axios.put(`${API_URL}/profile/update-profile`, {
+        email: user.email, // Assuming user has an ID property
+        name: profileInfo.name,
+      });
+
+      if (response.data.success) {
+        console.log('Profile updated successfully');
+        // Optionally, update the UI or context with the new name
+      } else {
+        console.error('Failed to update profile:', response.data.message);
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error);
+    }
   };
 
   const handleChangePassword = (e) => {
@@ -142,7 +163,28 @@ function Profile() {
                   <div>{profileInfo.name}</div>
                 )}
               </div>
+              
+              {/* View-only fields */}
               <div className="info-item">
+                <div className="info-label">Date Of Birth</div>
+                <div>{profileInfo.dob}</div>
+              </div>
+              <div className="info-item">
+                <div className="info-label">Phone Number</div>
+                <div>{profileInfo.phone}</div>
+              </div>
+              <div className="info-item">
+                <div className="info-label">Email Address</div>
+                <div>{profileInfo.email}</div>
+              </div>
+              <div className="info-item">
+                <div className="info-label">Bio</div>
+                <div>{profileInfo.bio}</div>
+
+
+              {/* Change view only into editablbe: */}
+
+              {/* <div className="info-item">
                 <div className="info-label">Date Of Birth</div>
                 {editMode ? (
                   <input
@@ -167,8 +209,8 @@ function Profile() {
                 ) : (
                   <div>{profileInfo.phone}</div>
                 )}
-              </div>
-              <div className="info-item">
+              </div> */}
+              {/* <div className="info-item">
                 <div className="info-label">Email Address</div>
                 {editMode ? (
                   <input
@@ -191,7 +233,7 @@ function Profile() {
                   />
                 ) : (
                   <div>{profileInfo.bio}</div>
-                )}
+                )} */}
               </div>
             </div>
           </div>
@@ -201,29 +243,11 @@ function Profile() {
             <div className="diseases-grid">
               <div className="info-item">
                 <div className="info-label">Speech</div>
-                {editMode ? (
-                  <input
-                    type="text"
-                    name="speechDisease"
-                    value={profileInfo.speechDisease}
-                    onChange={handleInputChange}
-                  />
-                ) : (
                   <div>{profileInfo.speechDisease}</div>
-                )}
               </div>
               <div className="info-item">
                 <div className="info-label">Physical</div>
-                {editMode ? (
-                  <input
-                    type="text"
-                    name="physicalDisease"
-                    value={profileInfo.physicalDisease}
-                    onChange={handleInputChange}
-                  />
-                ) : (
                   <div>{profileInfo.physicalDisease}</div>
-                )}
               </div>
             </div>
           </div>

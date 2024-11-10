@@ -2,21 +2,21 @@
 import React from 'react';
 import './Header.css';
 
-function Header() {
+function Header({ userName }) {  // Receive userName as a prop
   return (
     <header className="dashboard-header">
-      <div>
+      <div className="welcome-message">
         <h1>Welcome Back</h1>
-        <p>Hi, user</p>
+        <p>Hi, {userName}</p>
       </div>
       <div className="search-bar">
-        <input type="text" placeholder="Find doctors" />
-        <input type="text" placeholder="Location" />
-        <button>Search</button>
+        <input type="text" placeholder="Find doctors" aria-label="Search for doctors" />
+        <input type="text" placeholder="Location" aria-label="Search by location" />
+        <button aria-label="Search">Search</button>
       </div>
       {/* <div className="user-info">
-        <span>EN</span>
-        <span>Username</span>
+        <span className="language">EN</span>
+        <span className="username">{userName}</span>
       </div> */}
     </header>
   );

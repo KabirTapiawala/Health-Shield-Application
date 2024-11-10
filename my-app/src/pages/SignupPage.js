@@ -1,9 +1,11 @@
+// /src/pages/SignupPage.js
 import React, { useState } from 'react';
 import Logo from '../components/Logo';
 import Signup from '../components/Auth/Signup';
 import './AuthPage.css';
-import { signup } from '../services/authService'; // Assuming `signup` is an API call for registration
+import { signup } from '../services/authService';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext'; // Import useAuth
 
 function SignupPage() {
   const [fullName, setFullName] = useState('');
@@ -11,6 +13,7 @@ function SignupPage() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth(); // Destructure login from useAuth
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,8 +22,10 @@ function SignupPage() {
       return;
     }
     try {
-      await signup({ fullName, email, password });
-      navigate('/profile'); // Redirect to profile page after successful signup
+      const userData = await signup({ fullName, email, password });
+      console.log(userData);
+      login(userData); // Save user data to context
+      navigate('/dashboard'); // Redirect to dashboard after successful signup
     } catch (error) {
       console.error(error);
       alert('Signup failed');

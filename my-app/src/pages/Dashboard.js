@@ -5,11 +5,14 @@ import Banner from '../components/Banner';
 import Appointments from '../components/Appointments';
 import Calendar from '../components/Calendar';
 import './Dashboard.css';
+import { useAuth } from '../context/AuthContext'; // Import useAuth
 
 function Dashboard() {
+  const { user } = useAuth(); // Get the user from context
+
   return (
     <div className="dashboard">
-      <Header />
+      <Header userName={user?.fullName || 'User'} /> {/* Pass user name to Header */}
       <Banner />
       <div className="main-content">
         <Appointments />

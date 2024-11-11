@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -77,29 +77,37 @@
         ];
 
         function searchDoctors() {
-            const name = document.getElementById('name').value.toLowerCase();
+            const name = document.getElementById('name').value.trim().toLowerCase();
             const location = document.getElementById('location').value;
             const specialty = document.getElementById('specialty').value;
 
+            // Filter doctors based on search criteria
             const filteredDoctors = doctors.filter(doctor => {
-                const nameMatch = doctor.name.toLowerCase().includes(name);
-                const locationMatch = !location || doctor.location === location;
-                const specialtyMatch = !specialty || doctor.specialty === specialty;
+                const nameMatch = name ? doctor.name.toLowerCase().includes(name) : true;
+                const locationMatch = location ? doctor.location === location : true;
+                const specialtyMatch = specialty ? doctor.specialty === specialty : true;
                 
                 return nameMatch && locationMatch && specialtyMatch;
             });
 
-            displayDoctors(filteredDoctors);
-        }
-
-        function displayDoctors(doctors) {
+            // Display results or error messages
             const doctorList = document.getElementById('doctor-list');
             doctorList.innerHTML = '';
 
-            if (doctors.length === 0) {
-                doctorList.innerHTML = '<p>No doctors found.</p>';
+            if (!name && !location && !specialty) {
+                doctorList.innerHTML = '<p>Please provide at least one search criterion.</p>';
+            } else if (filteredDoctors.length === 0) {
+                if (name && !doctors.some(doc => doc.name.toLowerCase().includes(name))) {
+                    doctorList.innerHTML = `<p>Doctor with name "${name}" not found.</p>`;
+                } else if (location && !doctors.some(doc => doc.location === location)) {
+                    doctorList.innerHTML = `<p>No providers found in "${location}".</p>`;
+                } else if (specialty && !doctors.some(doc => doc.specialty === specialty)) {
+                    doctorList.innerHTML = `<p>No providers found for specialty "${specialty}".</p>`;
+                } else {
+                    doctorList.innerHTML = '<p>No providers found matching all criteria.</p>';
+                }
             } else {
-                doctors.forEach(doctor => {
+                filteredDoctors.forEach(doctor => {
                     const doctorElement = document.createElement('div');
                     doctorElement.classList.add('doctor');
                     doctorElement.innerHTML = `

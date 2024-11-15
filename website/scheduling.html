@@ -93,55 +93,81 @@
             background-color: #007bff;
             color: white;
         }
+
+        .message {
+            margin-top: 15px;
+            font-size: 0.95em;
+            color: #555;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- Appointment Details Form -->
+        <!-- Appointment Form -->
         <div class="form-section">
-            <h2>Enter Details</h2>
-            <label for="patientName">Patient's Name:</label>
-            <input type="text" id="patientName" placeholder="Enter your name">
-
-            <label for="contactNumber">Contact Number:</label>
-            <input type="tel" id="contactNumber" placeholder="Enter mobile number">
-
-            <label for="problem">Problem:</label>
-            <select id="problem">
-                <option value="fever">Fever</option>
-                <option value="cold">Cold</option>
-                <option value="headache">Headache</option>
-                <option value="other">Other</option>
-            </select>
-
-            <button>Next</button>
-        </div>
-
-        <!-- Calendar & Time Slot Selection -->
-        <div class="form-section">
-            <h2>Select Date and Time</h2>
-            <label for="appointmentDate">Date:</label>
+            <h2>Schedule Appointment</h2>
+            <label for="appointmentDate">Appointment Date:</label>
             <input type="date" id="appointmentDate">
 
-            <h3>Select Time Slot:</h3>
-            <div class="time-slots">
-                <button>10:30 AM</button>
-                <button>11:30 AM</button>
-                <button>2:30 PM</button>
-                <button>4:30 PM</button>
-            </div>
+            <label for="appointmentTime">Appointment Time:</label>
+            <select id="appointmentTime">
+                <option value="">Select a time slot</option>
+                <option value="10:30">10:30 AM</option>
+                <option value="11:30">11:30 AM</option>
+                <option value="14:30">2:30 PM</option>
+                <option value="16:30">4:30 PM</option>
+            </select>
 
-            <button>Confirm</button>
-        </div>
-
-        <!-- Confirmation Message -->
-        <div class="form-section">
-            <h2>Appointment Scheduled Successfully!</h2>
-            <p>Thank you for scheduling an appointment. You will receive confirmation details soon.</p>
+            <button id="confirmButton">Confirm Appointment</button>
+            <p id="message" class="message"></p>
         </div>
     </div>
 
+    <script>
+        // JavaScript Logic
+        const confirmButton = document.getElementById('confirmButton');
+        const message = document.getElementById('message');
+
+        // Mocked existing appointments
+        const existingAppointments = [
+            { date: "2024-11-16", time: "10:30" },
+            { date: "2024-11-16", time: "14:30" }
+        ];
+
+        confirmButton.addEventListener('click', () => {
+            const appointmentDate = document.getElementById('appointmentDate').value;
+            const appointmentTime = document.getElementById('appointmentTime').value;
+
+            // Test Case 1: Date and/or time blank
+            if (!appointmentDate || !appointmentTime) {
+                message.textContent = "Please select a date and time for your appointment.";
+                return;
+            }
+
+            // Test Case 2: Valid date and time
+            const now = new Date();
+            const selectedDate = new Date(appointmentDate);
+
+            if (selectedDate <= now) {
+                message.textContent = "Appointment date must be in the future.";
+                return;
+            }
+
+            const conflict = existingAppointments.some(
+                (appt) => appt.date === appointmentDate && appt.time === appointmentTime
+            );
+
+            // Test Case 3: Conflicting appointment
+            if (conflict) {
+                message.textContent = "This time slot is already booked. Please select a different time.";
+                return;
+            }
+
+            // Successful case
+            message.textContent = "Appointment successfully scheduled and confirmed.";
+        });
+    </script>
+
 </body>
 </html>
- 

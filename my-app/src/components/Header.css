@@ -1,0 +1,12 @@
+/* /src/components/Header.css */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-bar input {
+    margin-right: 10px;
+  }
+  

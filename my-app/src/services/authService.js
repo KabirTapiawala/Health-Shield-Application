@@ -5,6 +5,7 @@ const API_URL = 'http://localhost:5000/api/auth';
 // Signup function
 export const signup = async (userData) => {
   const response = await axios.post(`${API_URL}/signup`, userData);
+  console.log('server response:',response);
   return response.data;
 };
 

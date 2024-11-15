@@ -1,0 +1,78 @@
+/* /src/components/Calendar.css */
+.calendar {
+    flex: 1;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .calendar h3 {
+    margin-bottom: 10px;
+  }
+  
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    text-align: center;
+  }
+  
+  .calendar-grid .day,
+  .calendar-grid .empty {
+    padding: 10px;
+    background-color: #f4f4f4;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .calendar-grid .day.today {
+    border: 2px solid #3B9AB8;
+  }
+  
+  .calendar-grid .day.selected {
+    background-color: #3B9AB8;
+    color: #fff;
+  }
+  
+  .calendar-grid .day.disabled {
+    background-color: #e0e0e0;
+    color: #aaa;
+    cursor: not-allowed;
+  }
+  
+  .time-slots {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .time-slot-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .time-slot {
+    padding: 10px 20px;
+    background-color: #f4f4f4;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .time-slot.selected {
+    background-color: #3B9AB8;
+    color: #fff;
+  }
+  
+  .confirm-button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #3B9AB8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  

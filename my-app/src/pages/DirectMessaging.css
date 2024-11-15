@@ -1,0 +1,96 @@
+/* Inside /src/pages/DirectMessaging.css */
+
+.direct-messaging {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+  }
+  
+  .content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .header {
+    padding: 15px;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .inbox {
+    display: flex;
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+  
+  .messages-list {
+    width: 250px;
+    padding: 10px;
+    border-right: 1px solid #ddd;
+  }
+  
+  .message-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+  }
+  
+  .message-item:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .chat {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+  }
+  
+  .chat .message {
+    margin: 5px 0;
+  }
+  
+  .chat .doctor-message {
+    align-self: flex-start;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 60%;
+  }
+  
+  .chat .user-message {
+    align-self: flex-end;
+    background-color: #cde0f9;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 60%;
+  }
+  
+  .input-area {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+  }
+  
+  .input-area input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  
+  .input-area button {
+    padding: 10px 20px;
+    background-color: #3B9AB8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  

@@ -4,7 +4,11 @@ import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-route
 import Sidebar from './components/Sidebar';
 import Profile from './pages/Profile';
 import LoginPage from './pages/LoginPage';
+import Dashboard from './pages/Dashboard';
 import SignupPage from './pages/SignupPage';
+import DirectMessaging from './pages/DirectMessaging';
+import ScheduleAppointment from './pages/ScheduleAppointment'
+import Prescriptions from './pages/Prescriptions'
 import './styles/global.css';
 
 function AppContent() {
@@ -23,7 +27,11 @@ function AppContent() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/" element={<LoginPage />} /> {/* Default route */}
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/inbox" element={<DirectMessaging />} />
+          <Route path="/calendar" element={<ScheduleAppointment />} />
+          <Route path="/prescriptions" element={<Prescriptions />} />
           {/* Add other routes later */}
         </Routes>
       </div>

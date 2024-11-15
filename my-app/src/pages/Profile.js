@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import './Profile.css';
+import { useAuth } from '../context/AuthContext'; // Import useAuth
+import axios from 'axios';
+
+const API_URL = 'http://localhost:5000/api';
 
 function Profile() {
   const [activeTab, setActiveTab] = useState('profile');
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [editMode, setEditMode] = useState(false); // Track if in edit mode
   const [changePasswordMode, setChangePasswordMode] = useState(false); // Track if in change password mode
+  const { user } = useAuth(); // Get the user from context
 
   // State variables for profile information
   const [profileInfo, setProfileInfo] = useState({
-    name: "User Name",
-    dob: "03/04/1996",
-    phone: "+1 2387428345",
-    email: "Email@gmail.com",
+    name: user?.fullName || 'User',
+    dob: user?.dob || "03/04/1996",
+    phone: user?.phone || "+1 0000000000",
+    email: user?.email || "name@email.com",
     bio: "General Patient",
     speechDisease: "None",
     physicalDisease: "None"
@@ -22,6 +27,8 @@ function Profile() {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState(''); // Error state for validation
+  const [phoneError, setPhoneError] = useState(''); // Error state for phone validation
 
   const medicalHistory = [
     {
@@ -63,29 +70,89 @@ function Profile() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    
+    if (name === "phone") {
+      const isNumeric = /^\d+$/.test(value);
+      if (!isNumeric && value !== "") {
+        setPhoneError("Phone number must contain only digits.");
+        return;
+      }
+      if (value.length > 10) {
+        setPhoneError("Phone number must be exactly 10 digits.");
+        return;
+      }
+      setPhoneError(value.length === 10 ? "" : "Phone number must be exactly 10 digits.");
+    }
+    
     setProfileInfo({
       ...profileInfo,
       [name]: value
     });
   };
 
-  const saveProfileInfo = () => {
-    setEditMode(false); // Exit edit mode on save
-    // Here, you could also add logic to persist the changes to a database
+  const saveProfileInfo = async () => {
+    if (phoneError) {
+      alert('Please correct phone number before saving.');
+      return;
+    }
+
+    const selectedDate = new Date(profileInfo.dob);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (selectedDate > today) {
+      alert('Date of birth cannot be in the future.');
+      return;
+    }
+
+    setEditMode(false);
+
+    try {
+      const response = await axios.put(`${API_URL}/profile/update-profile`, {
+        email: user.email,
+        name: profileInfo.name,
+        dob: profileInfo.dob,
+        phone: profileInfo.phone,
+        bio: profileInfo.bio,
+      });
+
+      if (response.data.success) {
+        console.log('Profile updated successfully');
+      } else {
+        console.error('Failed to update profile:', response.data.message);
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error);
+    }
   };
 
-  const handleChangePassword = (e) => {
+  const handleChangePassword = async (e) => {
     e.preventDefault();
     // Here you can add logic to handle the password change
     if (newPassword === confirmPassword) {
-      console.log('Password changed successfully');
+      try {
+        const response = await axios.put(`${API_URL}/profile/change-password`, {
+          email: profileInfo.email,
+          password: newPassword
+        });
+  
+        if (response.data.success) {
+          console.log('Profile updated successfully');
+          alert('Password changed successfully');
+        } else {
+          alert('Failed to change password.');
+        }
+      } catch (error) {
+        console.error('Error updating password:', error);
+      }
+      
       // Reset fields after successful change
       setCurrentPassword('');
       setNewPassword('');
       setConfirmPassword('');
       setChangePasswordMode(false);
     } else {
-      console.error('New passwords do not match');
+      alert('New passwords do not match');
     }
   };
 
@@ -95,8 +162,8 @@ function Profile() {
       <div className="header">
         <h1>Profile</h1>
         <div className="user-nav">
-          <div className="lang-select">EN ▼</div>
-          <span>🔔</span>
+          {/* <div className="lang-select">EN ▼</div>
+          <span>🔔</span> */}
           <div className="avatar"></div>
           <span>{profileInfo.name}</span>
         </div>
@@ -137,11 +204,33 @@ function Profile() {
                     name="name"
                     value={profileInfo.name}
                     onChange={handleInputChange}
+                    maxLength={30} // Limit name to 30 characters
                   />
                 ) : (
                   <div>{profileInfo.name}</div>
                 )}
               </div>
+              
+              {/* View-only fields */}
+              {/* <div className="info-item">
+                <div className="info-label">Date Of Birth</div>
+                <div>{profileInfo.dob}</div>
+              </div>
+              <div className="info-item">
+                <div className="info-label">Phone Number</div>
+                <div>{profileInfo.phone}</div>
+              </div>
+              <div className="info-item">
+                <div className="info-label">Bio</div>
+                <div>{profileInfo.bio}</div> */}
+              <div className="info-item">
+                <div className="info-label">Email Address</div>
+                <div>{profileInfo.email}</div>
+              </div>
+
+
+              {/* Change view only into editablbe: */}
+
               <div className="info-item">
                 <div className="info-label">Date Of Birth</div>
                 {editMode ? (
@@ -168,7 +257,7 @@ function Profile() {
                   <div>{profileInfo.phone}</div>
                 )}
               </div>
-              <div className="info-item">
+              {/* <div className="info-item">
                 <div className="info-label">Email Address</div>
                 {editMode ? (
                   <input
@@ -180,7 +269,7 @@ function Profile() {
                 ) : (
                   <div>{profileInfo.email}</div>
                 )}
-              </div>
+              </div> */}
               <div className="info-item">
                 <div className="info-label">Bio</div>
                 {editMode ? (
@@ -188,6 +277,7 @@ function Profile() {
                     name="bio"
                     value={profileInfo.bio}
                     onChange={handleInputChange}
+                    maxLength={300} // Limit bio to 300 characters
                   />
                 ) : (
                   <div>{profileInfo.bio}</div>
@@ -201,29 +291,11 @@ function Profile() {
             <div className="diseases-grid">
               <div className="info-item">
                 <div className="info-label">Speech</div>
-                {editMode ? (
-                  <input
-                    type="text"
-                    name="speechDisease"
-                    value={profileInfo.speechDisease}
-                    onChange={handleInputChange}
-                  />
-                ) : (
                   <div>{profileInfo.speechDisease}</div>
-                )}
               </div>
               <div className="info-item">
                 <div className="info-label">Physical</div>
-                {editMode ? (
-                  <input
-                    type="text"
-                    name="physicalDisease"
-                    value={profileInfo.physicalDisease}
-                    onChange={handleInputChange}
-                  />
-                ) : (
                   <div>{profileInfo.physicalDisease}</div>
-                )}
               </div>
             </div>
           </div>
@@ -257,15 +329,6 @@ function Profile() {
             <div className="change-password-section">
               <h3>Change Password</h3>
               <form onSubmit={handleChangePassword}>
-                <div>
-                  <label>Current Password</label>
-                  <input
-                    type="password"
-                    value={currentPassword}
-                    onChange={(e) => setCurrentPassword(e.target.value)}
-                    required
-                  />
-                </div>
                 <div>
                   <label>New Password</label>
                   <input

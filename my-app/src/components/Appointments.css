@@ -1,0 +1,18 @@
+/* /src/components/Appointments.css */
+.appointments {
+    flex: 1;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .appointments-header {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .appointments ul {
+    list-style: none;
+    padding: 0;
+  }
+  

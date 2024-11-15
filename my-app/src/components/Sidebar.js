@@ -7,7 +7,7 @@ function Sidebar() {
   return (
     <div className="sidebar">
       <div className="sidebar-logo">
-        <img src="/assets/logo.png" alt="App Logo" />
+        <img src="../assets/logo.png" alt="App Logo" />
       </div>
       <ul>
         <li><Link to="/dashboard">Dashboard</Link></li>

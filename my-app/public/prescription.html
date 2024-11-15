@@ -101,7 +101,6 @@
         .prescription-name {
             font-size: 16px;
             font-weight: bold;
-            color: #333;
         }
 
         .view-details {
@@ -150,15 +149,15 @@
 <body>
     <div class="app-container">
         <aside class="sidebar">
-            <div class="logo">
-                <img src="./screenshotSmall.jpeg" alt="Logo" style="width: 200px; height: auto;" />
-            </div>        
+          <div class="logo">
+            <img src="screenshotSmall.jpeg" alt="Logo" style="width: 200px; height: auto;" />
+        </div>        
             <nav>
                 <a href="#" class="nav-item">Dashboard</a>
                 <a href="#" class="nav-item">Calendar</a>
                 <a href="#" class="nav-item">Inbox</a>
                 <a href="#" class="nav-item">Profile</a>
-                <a href="#" class="nav-item active" onclick="renderPrescriptionList()">Prescriptions</a>
+                <a href="#" class="nav-item active">Prescriptions</a>
                 <a href="#" class="nav-item">Logout</a>
             </nav>
         </aside>
@@ -197,12 +196,16 @@
             `;
         }
 
-        // Function to handle renewal based on prescription ID
+        // Function to simulate prescription renewal
         function renewPrescription(id) {
-            if (id === 1) {
-                renderRenewalFailure(); // Show failure for Amoxicillin
+            // Find the prescription by ID
+            const prescription = prescriptions.find(p => p.id === id);
+
+            // If the prescription is "Amoxicillin," show the failure message
+            if (prescription && prescription.name === 'Amoxicillin') {
+                renderRenewalFailure();
             } else {
-                renderRenewalSuccess(); // Show success for other medications
+                renderRenewalSuccess();
             }
         }
 
@@ -219,7 +222,6 @@
                     <p><strong>Pick-up time:</strong> 10:00 AM, 10/23/2024</p>
                     <p><strong>Pick-up location:</strong> Walgreens, 7399 Chesnut Road</p>
                 </div>
-                <button class="renew-button" onclick="renderPrescriptionList()">Return to Prescriptions</button>
             `;
         }
 
@@ -229,7 +231,6 @@
             content.innerHTML = `
                 <h1>Prescription Renewal</h1>
                 <p class="error-message">We're sorry, but your prescription renewal could not be processed at this time.</p>
-                <button class="renew-button" onclick="renderPrescriptionList()">Return to Prescriptions</button>
             `;
         }
 
@@ -238,3 +239,4 @@
     </script>
 </body>
 </html>
+

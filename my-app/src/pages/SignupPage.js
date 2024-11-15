@@ -5,15 +5,17 @@ import Signup from '../components/Auth/Signup';
 import './AuthPage.css';
 import { signup } from '../services/authService';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // Import useAuth
+import { useAuth } from '../context/AuthContext';
 
 function SignupPage() {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [phone, setPhone] = useState(''); // State for phone number
+  const [dob, setDob] = useState(''); // State for date of birth
   const navigate = useNavigate();
-  const { login } = useAuth(); // Destructure login from useAuth
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,10 +24,10 @@ function SignupPage() {
       return;
     }
     try {
-      const userData = await signup({ fullName, email, password });
+      const userData = await signup({ fullName, email, password, phone, dob }); // Include phone and dob in the signup payload
       console.log(userData);
-      login(userData); // Save user data to context
-      navigate('/dashboard'); // Redirect to dashboard after successful signup
+      login(userData);
+      navigate('/dashboard');
     } catch (error) {
       console.error(error);
       alert('Signup failed');
@@ -43,11 +45,15 @@ function SignupPage() {
           email={email}
           password={password}
           confirmPassword={confirmPassword}
+          phone={phone} // Pass phone state to Signup component
+          dob={dob} // Pass dob state to Signup component
           setFullName={setFullName}
           setEmail={setEmail}
           setPassword={setPassword}
           setConfirmPassword={setConfirmPassword}
-          onSubmit={handleSubmit} 
+          setPhone={setPhone} // Pass phone setter to Signup component
+          setDob={setDob} // Pass dob setter to Signup component
+          onSubmit={handleSubmit}
         />
       </div>
     </div>

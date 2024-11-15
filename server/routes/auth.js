@@ -10,7 +10,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_key';
 
 // Signup Route
 router.post('/signup', async (req, res) => {
-  const { fullName, email, password } = req.body;
+  const { fullName, email, password, phone, dob, bio } = req.body;
 //   console.log(password);
 
   try {
@@ -24,12 +24,12 @@ router.post('/signup', async (req, res) => {
 
     // Create new user
     // console.log(password)
-    const newUser = new User({ fullName, email, password });
+    const newUser = new User({ fullName, email, password, phone, dob, bio });
     await newUser.save();
 
     // console.log(newUser.password);
 
-    res.status(201).json({ fullName: fullName, email: email });
+    res.status(201).json({ fullName: fullName, email: email, phone: phone, dob: dob });
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
   }
@@ -55,26 +55,26 @@ router.post('/login', async (req, res) => {
 
     // Create and send JWT
     // const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
-    res.json({ fullName: user.fullName, email: user.email });
+    res.json({ fullName: user.fullName, email: user.email, phone: user.phone, dob: user.dob, bio: user.bio });
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
   }
 });
 
-// Protected Route Example (e.g., Get User Profile)
-router.get('/profile', async (req, res) => {
-  const token = req.header('Authorization').replace('Bearer ', '');
+// // Protected Route Example (e.g., Get User Profile)
+// router.get('/profile', async (req, res) => {
+//   const token = req.header('Authorization').replace('Bearer ', '');
 
-  try {
-    // Verify token
-    const decoded = jwt.verify(token, JWT_SECRET);
-    const user = await User.findById(decoded.id);
-    if (!user) return res.status(404).json({ message: 'User not found' });
+//   try {
+//     // Verify token
+//     const decoded = jwt.verify(token, JWT_SECRET);
+//     const user = await User.findById(decoded.id);
+//     if (!user) return res.status(404).json({ message: 'User not found' });
 
-    res.json({ fullName: user.fullName, email: user.email });
-  } catch (error) {
-    res.status(401).json({ message: 'Unauthorized' });
-  }
-});
+//     res.json({ fullName: user.fullName, email: user.email, phone: user.phone, dob: user.dob });
+//   } catch (error) {
+//     res.status(401).json({ message: 'Unauthorized' });
+//   }
+// });
 
 module.exports = router;

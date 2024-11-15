@@ -1,7 +1,21 @@
 import React from 'react';
 import './Auth.css';
 
-function Signup({fullName, email, password, confirmPassword, setFullName, setEmail, setPassword, setConfirmPassword, onSubmit }) {
+function Signup({
+  fullName,
+  email,
+  password,
+  confirmPassword,
+  phone,
+  dob, // Add dob as a prop
+  setFullName,
+  setEmail,
+  setPassword,
+  setConfirmPassword,
+  setPhone,
+  setDob, // Add setter for dob
+  onSubmit
+}) {
   return (
     <div className="signup-container">
       <h2>Account Signup</h2>
@@ -14,7 +28,7 @@ function Signup({fullName, email, password, confirmPassword, setFullName, setEma
             name="fullName"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
-            placeholder="Full Name" 
+            placeholder="Full Name"
             required
           />
         </div>
@@ -26,7 +40,7 @@ function Signup({fullName, email, password, confirmPassword, setFullName, setEma
             name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email Address" 
+            placeholder="Email Address"
             required
           />
         </div>
@@ -38,7 +52,7 @@ function Signup({fullName, email, password, confirmPassword, setFullName, setEma
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password" 
+            placeholder="Password"
             required
           />
         </div>
@@ -50,7 +64,31 @@ function Signup({fullName, email, password, confirmPassword, setFullName, setEma
             name="confirmPassword"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder="Verify Password" 
+            placeholder="Verify Password"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="phone">Phone Number</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="Phone Number"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="dob">Date of Birth</label>
+          <input
+            type="date"
+            id="dob"
+            name="dob"
+            value={dob} // Bind dob value
+            onChange={(e) => setDob(e.target.value)} // Update dob state on change
+            placeholder="Date of Birth"
             required
           />
         </div>
@@ -58,6 +96,6 @@ function Signup({fullName, email, password, confirmPassword, setFullName, setEma
       </form>
     </div>
   );
-};
+}
 
 export default Signup;

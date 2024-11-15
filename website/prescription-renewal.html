@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Shield Application</title>
+    <style>
+        /* CSS Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+
+        .app-container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #e0e3e7;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .logo {
+            font-size: 2rem;
+            margin-bottom: 50px;
+        }
+
+        .nav-item {
+            padding: 15px;
+            font-size: 16px;
+            color: #333;
+            text-decoration: none;
+            width: 100%;
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+            align-items: flex-start; /* Align items to the start (left) */
+            padding-left: 20px;
+        }
+
+        .nav-item.active, .nav-item:hover {
+            background-color: #8ab6d6;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            border: none;
+            background-color: #e0e3e7;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .tab.active {
+            background-color: #8ab6d6;
+            color: white;
+        }
+
+        .prescription-list {
+            margin-top: 20px;
+        }
+
+        .prescription-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .prescription-name {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .view-details {
+            color: #8ab6d6;
+            text-decoration: none;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+
+        .renew-button {
+            padding: 8px 15px;
+            background-color: #8ab6d6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .renew-button:hover {
+            background-color: #7aa8c8;
+        }
+
+        .success-message {
+            font-size: 18px;
+            color: #3B9AB8;
+            margin-bottom: 20px;
+        }
+
+        .renewal-details p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .renewal-details strong {
+            font-weight: bold;
+        }
+
+        .error-message {
+            font-size: 18px;
+            color: #d9534f;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="./screenshotSmall.jpeg" alt="Logo" style="width: 200px; height: auto;" />
+            </div>        
+            <nav>
+                <a href="#" class="nav-item">Dashboard</a>
+                <a href="#" class="nav-item">Calendar</a>
+                <a href="#" class="nav-item">Inbox</a>
+                <a href="#" class="nav-item">Profile</a>
+                <a href="#" class="nav-item active" onclick="renderPrescriptionList()">Prescriptions</a>
+                <a href="#" class="nav-item">Logout</a>
+            </nav>
+        </aside>
+        <main class="content" id="content">
+            <!-- Content will be injected here by JavaScript -->
+        </main>
+    </div>
+
+    <script>
+        // Sample prescription data
+        const prescriptions = [
+            { id: 1, name: 'Amoxicillin', dosage: '20 mg' },
+            { id: 2, name: 'Fluoxetine', dosage: '20 mg' },
+        ];
+
+        // Prescription List Component
+        function renderPrescriptionList() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <header>
+                    <h1>Prescriptions</h1>
+                    <div class="tabs">
+                        <button class="tab active" onclick="renderPrescriptionList()">Current</button>
+                        <button class="tab" onclick="renderPastPrescriptions()">Past</button>
+                    </div>
+                </header>
+                <section class="prescription-list">
+                    ${prescriptions.map(p => `
+                        <div class="prescription-item">
+                            <span class="prescription-name">${p.name} ${p.dosage}</span>
+                            <a href="#" class="view-details">View Details</a>
+                            <button class="renew-button" onclick="renewPrescription(${p.id})">Renew</button>
+                        </div>
+                    `).join('')}
+                </section>
+            `;
+        }
+
+        // Function to handle renewal based on prescription ID
+        function renewPrescription(id) {
+            if (id === 1) {
+                renderRenewalFailure(); // Show failure for Amoxicillin
+            } else {
+                renderRenewalSuccess(); // Show success for other medications
+            }
+        }
+
+        // Prescription Renewal Success Component
+        function renderRenewalSuccess() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <h1>Prescription Renewal</h1>
+                <p class="success-message">Thank you, your prescription renewal has been processed.</p>
+                <div class="renewal-details">
+                    <p>Fluoxetine 20 mg</p>
+                    <p>Dr. John Smith</p>
+                    <p>Date of Renewal: 10/22/2024</p>
+                    <p><strong>Pick-up time:</strong> 10:00 AM, 10/23/2024</p>
+                    <p><strong>Pick-up location:</strong> Walgreens, 7399 Chesnut Road</p>
+                </div>
+                <button class="renew-button" onclick="renderPrescriptionList()">Return to Prescriptions</button>
+            `;
+        }
+
+        // Prescription Renewal Failure Component
+        function renderRenewalFailure() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <h1>Prescription Renewal</h1>
+                <p class="error-message">We're sorry, but your prescription renewal could not be processed at this time.</p>
+                <button class="renew-button" onclick="renderPrescriptionList()">Return to Prescriptions</button>
+            `;
+        }
+
+        // Initial rendering of the prescription list
+        renderPrescriptionList();
+    </script>
+</body>
+</html>
+

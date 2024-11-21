@@ -96,6 +96,11 @@ function Profile() {
       return;
     }
 
+    if (!profileInfo.name.trim()) {
+      alert('Name cannot be empty.');
+      return;
+    }
+
     const selectedDate = new Date(profileInfo.dob);
     const today = new Date();
     today.setHours(0, 0, 0, 0);

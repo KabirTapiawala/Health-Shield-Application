@@ -1,18 +1,47 @@
 /* /src/components/Appointments.css */
 .appointments {
-    flex: 1;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-  }
-  
-  .appointments-header {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .appointments ul {
-    list-style: none;
-    padding: 0;
-  }
-  
+  flex: 1;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+  margin: 20px; /* Adds spacing around appointments */
+  font-family: 'Roboto', sans-serif;
+}
+
+.appointments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Vertically align elements */
+  margin-bottom: 15px;
+  border-bottom: 2px solid #e0e0e0; /* Separator for aesthetics */
+  padding-bottom: 10px;
+}
+
+.appointments ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.appointments ul li {
+  padding: 15px;
+  margin-bottom: 10px;
+  background: #f7f9fc; /* Light background for list items */
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.appointments ul li:hover {
+  background: #e0f7fa; /* Highlight on hover */
+}
+
+.appointments ul li span {
+  font-size: 14px;
+  color: #757575; /* Muted text for secondary information */
+}
+

@@ -1,43 +1,81 @@
-/* Inside /client/src/components/Sidebar.css */
+/* Sidebar Container */
 .sidebar {
-    background-color: #f4f4f4;
-    width: 250px;
-    padding: 20px;
-    height: 100vh;
-  }
-  
-  .sidebar-logo {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 40px;
-  }
-  
-  .sidebar ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .sidebar ul li {
-    margin-bottom: 20px;
-  }
-  
-  .sidebar ul li a {
-    text-decoration: none;
-    color: #333;
-    font-size: 18px;
-  }
-  
-  .sidebar ul li a:hover {
-    color: #1da1f2;
-  }
-  
-  .logout {
-    margin-top: 40px;
-    background-color: #ff4b5c;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    cursor: pointer;
-    width: 100%;
-  }
-  
+  background: linear-gradient(to bottom, #ffffff, #e8f0fe);
+  width: 250px;
+  padding: 20px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid #ddd;
+}
+
+/* Logo Section */
+.sidebar-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px; /* Space below the logo */
+  height: auto;
+  text-align: center; /* Center the logo */
+}
+
+.sidebar-logo img {
+  width: 100px; /* Set the logo width like in the auth-page CSS */
+  height: auto; /* Maintain aspect ratio */
+  margin-bottom: 20px; /* Space below the logo */
+}
+
+/* Sidebar Menu */
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  flex-grow: 1; /* Adjusts the layout to push logout to the bottom */
+}
+
+.sidebar ul li {
+  margin-bottom: 20px;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #00a6d0;
+  font-size: 18px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.sidebar ul li a:hover {
+  background: #00a6d0;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+}
+
+/* Icon Styling (Optional for Links with Icons) */
+.sidebar ul li a i {
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+/* Logout Button */
+.logout {
+  margin-top: auto;
+  background: linear-gradient(to right, #ff4b5c, #ff6b6b);
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.logout:hover {
+  background: linear-gradient(to right, #ff6b6b, #ff4b5c);
+  box-shadow: 0 2px 10px rgba(255, 75, 92, 0.3);
+}

@@ -1,12 +1,106 @@
-/* /src/components/Header.css */
+/* General Background */
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to bottom, #e8f0fe, #ffffff);
+  color: #333;
+}
+
+/* Dashboard Header */
 .dashboard-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .search-bar input {
-    margin-right: 10px;
-  }
-  
+  padding: 30px;
+  background: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin: 20px auto;
+  max-width: 900px;
+  text-align: center;
+}
+
+/* Welcome Message */
+.welcome-message {
+  margin-bottom: 30px;
+}
+
+.welcome-message h1 {
+  font-size: 2.5rem;
+  color: #00a6d0;
+  margin: 0;
+}
+
+.welcome-message p {
+  font-size: 1.2rem;
+  color: #555;
+  margin: 5px 0 0;
+}
+
+/* Search Bar */
+.search-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.search-bar select,
+.search-bar button {
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  flex: 1 1 30%;
+  min-width: 180px;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.search-bar select:focus,
+.search-bar button:hover {
+  border-color: #007bff;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
+}
+
+.search-bar button {
+  background: #00a6d0;
+  color: white;
+  cursor: pointer;
+}
+
+.search-bar button:hover {
+  background: #0056b3;
+}
+
+/* Error Message */
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+/* Doctor List */
+.doctor-list {
+  text-align: left;
+  margin-top: 20px;
+}
+
+.doctor {
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.doctor h4 {
+  margin: 0 0 8px;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.doctor p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #666;
+}

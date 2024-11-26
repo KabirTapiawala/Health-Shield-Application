@@ -1,13 +1,13 @@
-// Inside /client/src/components/Sidebar.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Sidebar.css';  // Styles for sidebar
+import './Sidebar.css';
+import logo from '../assets/logo.png'; // Import the logo image
 
 function Sidebar() {
   return (
     <div className="sidebar">
       <div className="sidebar-logo">
-        <img src="../assets/logo.png" alt="App Logo" />
+        <img src={logo} alt="App Logo" />
       </div>
       <ul>
         <li><Link to="/dashboard">Dashboard</Link></li>

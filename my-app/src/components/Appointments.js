@@ -3,8 +3,8 @@ import React from 'react';
 import './Appointments.css';
 
 const appointments = [
-  { day: 'Fri', date: 14, name: 'Dr. Ashton Cleve', time: '10:00am - 10:30am' },
-  { day: 'Sat', date: 15, name: 'Dr. Ashton Cleve', time: '10:00am - 10:30am' },
+  { day: 'Fri ', date: 14, name: 'Dr. Ashton Cleve', time: '10:00am - 10:30am' },
+  { day: 'Sat ', date: 15, name: 'Dr. Ashton Cleve', time: '10:00am - 10:30am' },
   // Add more as needed
 ];
 

@@ -1,44 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Header.css';
-
-// Sample doctor data
-const doctors = [
-  { name: 'Dr. John Smith', location: 'New York', specialty: 'Cardiology' },
-  { name: 'Dr. Emily Davis', location: 'Los Angeles', specialty: 'Neurology' },
-  { name: 'Dr. Robert Johnson', location: 'Chicago', specialty: 'Pediatrics' },
-  { name: 'Dr. Sarah Brown', location: 'New York', specialty: 'Neurology' },
-  { name: 'Dr. Michael Wilson', location: 'Los Angeles', specialty: 'Cardiology' },
-  { name: 'Dr. Linda Martinez', location: 'Chicago', specialty: 'Cardiology' },
-];
 
 function Header({ userName }) {
   const [name, setName] = useState('');
   const [location, setLocation] = useState('');
   const [specialty, setSpecialty] = useState('');
+  const [doctors, setDoctors] = useState([]);
   const [filteredDoctors, setFilteredDoctors] = useState([]);
   const [error, setError] = useState('');
 
-  const uniqueNames = [...new Set(doctors.map((doctor) => doctor.name))];
-  const uniqueLocations = [...new Set(doctors.map((doctor) => doctor.location))];
-  const uniqueSpecialties = [...new Set(doctors.map((doctor) => doctor.specialty))];
+  // Fetch all doctors on component mount
+  useEffect(() => {
+    fetchDoctors();
+  }, []);
 
-  const searchDoctors = () => {
-    const filtered = doctors.filter((doctor) => {
-      const nameMatch = name ? doctor.name === name : true;
-      const locationMatch = location ? doctor.location === location : true;
-      const specialtyMatch = specialty ? doctor.specialty === specialty : true;
-      return nameMatch && locationMatch && specialtyMatch;
-    });
+  const fetchDoctors = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/doctors');
+      const data = await response.json();
+      setDoctors(data);
+    } catch (error) {
+      console.error('Error fetching doctors:', error);
+    }
+  };
 
+  const searchDoctors = async () => {
     if (!name && !location && !specialty) {
       setError('Please provide at least one search criterion.');
       setFilteredDoctors([]);
-    } else if (filtered.length === 0) {
-      setError('No matching doctors found.');
-      setFilteredDoctors([]);
-    } else {
-      setError('');
-      setFilteredDoctors(filtered);
+      return;
+    }
+  
+    try {
+      const queryParams = {};
+      if (name) queryParams.name = name;
+      if (location) queryParams.location = location;
+      if (specialty) queryParams.specialty = specialty;  // Assuming you use 'specialty' on the backend
+      
+      const query = new URLSearchParams(queryParams).toString();
+      const response = await fetch(`http://localhost:5000/api/doctors?${query}`);
+      const data = await response.json();
+  
+      if (data.length === 0) {
+        setError('No matching doctors found.');
+        setFilteredDoctors([]);
+      } else {
+        setError('');
+        setFilteredDoctors(data);
+      }
+    } catch (error) {
+      console.error('Error searching doctors:', error);
     }
   };
 
@@ -49,40 +60,25 @@ function Header({ userName }) {
         <p>Hi, {userName}</p>
       </div>
       <div className="search-bar">
-        <select
+        <input
+          type="text"
+          placeholder="Doctor's Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          aria-label="Select Doctor's Name"
-        >
-          <option value="">Select Doctor's Name</option>
-          {uniqueNames.map((doctorName, index) => (
-            <option key={index} value={doctorName}>{doctorName}</option>
-          ))}
-        </select>
-
-        <select
+        />
+        <input
+          type="text"
+          placeholder="Location"
           value={location}
           onChange={(e) => setLocation(e.target.value)}
-          aria-label="Select Location"
-        >
-          <option value="">Select Location</option>
-          {uniqueLocations.map((loc, index) => (
-            <option key={index} value={loc}>{loc}</option>
-          ))}
-        </select>
-
-        <select
+        />
+        <input
+          type="text"
+          placeholder="Specialty"
           value={specialty}
           onChange={(e) => setSpecialty(e.target.value)}
-          aria-label="Select Specialty"
-        >
-          <option value="">Select Specialty</option>
-          {uniqueSpecialties.map((spec, index) => (
-            <option key={index} value={spec}>{spec}</option>
-          ))}
-        </select>
-
-        <button onClick={searchDoctors} aria-label="Search">Search</button>
+        />
+        <button onClick={searchDoctors}>Search</button>
       </div>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}

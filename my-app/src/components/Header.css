@@ -43,7 +43,27 @@ body {
   margin-bottom: 25px;
 }
 
-.search-bar select,
+/* Input Fields */
+.search-bar input {
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  flex: 1 1 30%;
+  min-width: 180px;
+  transition: all 0.3s ease;
+  outline: none;
+  background-color: #f9f9f9;
+}
+
+/* Input Hover/Focus Styling */
+.search-bar input:focus {
+  border-color: #32b8ca; /* Teal border on focus */
+  box-shadow: 0 0 10px rgba(50, 184, 202, 0.4); /* Adds a glow effect on focus */
+  background-color: #ffffff; /* White background on focus */
+}
+
+/* Search Button Gradient */
 .search-bar button {
   padding: 10px 15px;
   font-size: 16px;
@@ -53,10 +73,6 @@ body {
   min-width: 180px;
   transition: all 0.3s ease;
   outline: none;
-}
-
-/* Search Button Gradient */
-.search-bar button {
   background: linear-gradient(to right, #32b8ca, #7aa4d7); /* Teal to soft blue gradient */
   color: white;
   cursor: pointer;

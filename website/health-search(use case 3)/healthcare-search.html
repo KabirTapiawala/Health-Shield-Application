@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Provider Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .search-container {
+            max-width: 600px;
+            margin: auto;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px;
+            width: 100%;
+            background-color: teal;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: darkcyan;
+        }
+        .doctor-list {
+            margin-top: 20px;
+        }
+        .doctor {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <h2>Search for Healthcare Providers</h2>
+
+        <input type="text" id="name" placeholder="Enter Doctor's Name">
+        
+        <select id="location">
+            <option value="">Select Location</option>
+            <option value="New York">New York</option>
+            <option value="Los Angeles">Los Angeles</option>
+            <option value="Chicago">Chicago</option>
+        </select>
+
+        <select id="specialty">
+            <option value="">Select Specialty</option>
+            <option value="Cardiology">Cardiology</option>
+            <option value="Neurology">Neurology</option>
+            <option value="Pediatrics">Pediatrics</option>
+        </select>
+
+        <button onclick="searchDoctors()">Search</button>
+
+        <div class="doctor-list" id="doctor-list">
+            <!-- List of matching doctors will appear here -->
+        </div>
+    </div>
+
+    <script>
+        const doctors = [
+            { name: 'Dr. John Smith', location: 'New York', specialty: 'Cardiology' },
+            { name: 'Dr. Emily Davis', location: 'Los Angeles', specialty: 'Neurology' },
+            { name: 'Dr. Robert Johnson', location: 'Chicago', specialty: 'Pediatrics' },
+            { name: 'Dr. Sarah Brown', location: 'New York', specialty: 'Neurology' },
+            { name: 'Dr. Michael Wilson', location: 'Los Angeles', specialty: 'Cardiology' },
+            { name: 'Dr. Linda Martinez', location: 'Chicago', specialty: 'Cardiology' },
+        ];
+
+        function searchDoctors() {
+            const name = document.getElementById('name').value.toLowerCase();
+            const location = document.getElementById('location').value;
+            const specialty = document.getElementById('specialty').value;
+
+            const filteredDoctors = doctors.filter(doctor => {
+                const nameMatch = doctor.name.toLowerCase().includes(name);
+                const locationMatch = !location || doctor.location === location;
+                const specialtyMatch = !specialty || doctor.specialty === specialty;
+                
+                return nameMatch && locationMatch && specialtyMatch;
+            });
+
+            displayDoctors(filteredDoctors);
+        }
+
+        function displayDoctors(doctors) {
+            const doctorList = document.getElementById('doctor-list');
+            doctorList.innerHTML = '';
+
+            if (doctors.length === 0) {
+                doctorList.innerHTML = '<p>No doctors found.</p>';
+            } else {
+                doctors.forEach(doctor => {
+                    const doctorElement = document.createElement('div');
+                    doctorElement.classList.add('doctor');
+                    doctorElement.innerHTML = `
+                        <h4>${doctor.name}</h4>
+                        <p>Location: ${doctor.location}</p>
+                        <p>Specialty: ${doctor.specialty}</p>
+                    `;
+                    doctorList.appendChild(doctorElement);
+                });
+            }
+        }
+    </script>
+</body>
+</html>

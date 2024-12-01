@@ -24,13 +24,13 @@ body {
 
 .welcome-message h1 {
   font-size: 2.5rem;
-  color: #00a6d0;
+  color: #32b8ca; /* Teal shade for the main header */
   margin: 0;
 }
 
 .welcome-message p {
   font-size: 1.2rem;
-  color: #555;
+  color: #32b8ca; /* Soft blue for the subtitle */
   margin: 5px 0 0;
 }
 
@@ -55,20 +55,18 @@ body {
   outline: none;
 }
 
-.search-bar select:focus,
-.search-bar button:hover {
-  border-color: #007bff;
-  box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
-}
-
+/* Search Button Gradient */
 .search-bar button {
-  background: #00a6d0;
+  background: linear-gradient(to right, #32b8ca, #7aa4d7); /* Teal to soft blue gradient */
   color: white;
   cursor: pointer;
+  border: none; /* Removes the default border for a cleaner look */
 }
 
 .search-bar button:hover {
-  background: #0056b3;
+  background: linear-gradient(to right, #7aa4d7, #32b8ca); /* Reverse the gradient on hover */
+  box-shadow: 0 0 10px rgba(122, 164, 215, 0.5); /* Adds a subtle glow effect */
+  transform: scale(1.05); /* Slightly enlarges the button */
 }
 
 /* Error Message */

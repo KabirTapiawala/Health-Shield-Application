@@ -122,3 +122,40 @@ header h1 {
   font-weight: bold;
   color: #2b2d42;
 }
+
+.add-prescription-form {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.add-prescription-form h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #2b2d42;
+}
+
+.add-prescription-form input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.add-prescription-form .add-button {
+  background-color: #3b9ab8;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.add-prescription-form .add-button:hover {
+  background-color: #357a9c;
+}

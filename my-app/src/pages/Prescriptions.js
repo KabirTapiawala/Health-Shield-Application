@@ -1,24 +1,64 @@
-// /src/pages/Prescriptions.js
-import React, { useState } from 'react';
-import './Prescriptions.css'; // Ensure CSS file is correctly linked
+import React, { useState, useEffect } from 'react';
+import './Prescriptions.css';
+import { useAuth } from '../context/AuthContext'; // Import useAuth
+import axios from 'axios'; // Import axios
+
+const API_URL = 'http://localhost:5000/api';
 
 function Prescriptions() {
   const [isCurrentTab, setIsCurrentTab] = useState(true);
-  const [renewalStatus, setRenewalStatus] = useState(null);  // State for success/failure message
+  const [renewalStatus, setRenewalStatus] = useState(null);
+  const { user } = useAuth(); // Access logged-in user's information
+  const [prescriptions, setPrescriptions] = useState([]);
+  const [newPrescription, setNewPrescription] = useState({ name: '', dosage: '' });
 
-  const prescriptions = [
-    { id: 1, name: 'Amoxicillin', dosage: '20 mg' },
-    { id: 2, name: 'Fluoxetine', dosage: '20 mg' },
-  ];
+  // Fetch prescriptions for the logged-in user by email
+  const fetchPrescriptions = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/prescriptions/${user.email}`);
+      setPrescriptions(response.data);
+    } catch (error) {
+      alert('An error occurred while fetching prescriptions.');
+    }
+  };
 
-  // Function to render the list of prescriptions
+  useEffect(() => {
+    if (user && user.email) {
+      fetchPrescriptions(); // Fetch prescriptions when the user is logged in
+    }
+  }, [user]);
+
+  // Add prescription function
+  const addPrescription = async (e) => {
+    e.preventDefault();
+
+    if (!newPrescription.name || !newPrescription.dosage) {
+      alert('Please fill out all fields.');
+      return;
+    }
+
+    try {
+      console.log('prescriptions...');
+      const response = await axios.post(`${API_URL}/prescriptions`, {
+        email: user.email, // Send user's email
+        name: newPrescription.name,
+        dosage: newPrescription.dosage,
+      });
+
+      setPrescriptions([...prescriptions, response.data.prescription]);
+      setNewPrescription({ name: '', dosage: '' }); // Reset form
+    } catch (error) {
+      alert('An error occurred while adding the prescription.');
+    }
+  };
+
   const renderPrescriptionList = () => (
     <section className="prescription-list">
       {prescriptions.map((p) => (
-        <div key={p.id} className="prescription-item">
+        <div key={p._id} className="prescription-item">
           <span className="prescription-name">{p.name} {p.dosage}</span>
           <a href="#" className="view-details">View Details</a>
-          <button className="renew-button" onClick={() => renewPrescription(p.id)}>
+          <button className="renew-button" onClick={() => renewPrescription(p._id)}>
             Renew
           </button>
         </div>
@@ -26,24 +66,20 @@ function Prescriptions() {
     </section>
   );
 
-  // Function to renew prescription
   const renewPrescription = (id) => {
     if (id === 1) {
-      // Amoxicillin renew failure
       setRenewalStatus({
         success: false,
-        message: "We're sorry, but your prescription renewal could not be processed at this time."
+        message: "We're sorry, but your prescription renewal could not be processed at this time.",
       });
     } else if (id === 2) {
-      // Fluoxetine renew success
       setRenewalStatus({
         success: true,
-        message: "Thank you, your prescription renewal has been processed."
+        message: 'Thank you, your prescription renewal has been processed.',
       });
     }
   };
 
-  // Function to render renewal success message
   const renderRenewalSuccess = () => (
     <div className="renewal-success">
       <h2>Prescription Renewal</h2>
@@ -61,7 +97,6 @@ function Prescriptions() {
     </div>
   );
 
-  // Function to render renewal failure message
   const renderRenewalFailure = () => (
     <div className="renewal-failure">
       <h2>Prescription Renewal</h2>
@@ -94,7 +129,29 @@ function Prescriptions() {
       {renewalStatus ? (
         renewalStatus.success ? renderRenewalSuccess() : renderRenewalFailure()
       ) : (
-        isCurrentTab ? renderPrescriptionList() : <p>No past prescriptions available.</p>
+        isCurrentTab ? (
+          <>
+            {renderPrescriptionList()}
+            <form className="add-prescription-form" onSubmit={addPrescription}>
+              <h2>Add Prescription</h2>
+              <input
+                type="text"
+                placeholder="Prescription Name"
+                value={newPrescription.name}
+                onChange={(e) => setNewPrescription({ ...newPrescription, name: e.target.value })}
+              />
+              <input
+                type="text"
+                placeholder="Dosage (e.g., 20 mg)"
+                value={newPrescription.dosage}
+                onChange={(e) => setNewPrescription({ ...newPrescription, dosage: e.target.value })}
+              />
+              <button type="submit" className="add-button">Add</button>
+            </form>
+          </>
+        ) : (
+          <p>No past prescriptions available.</p>
+        )
       )}
     </div>
   );

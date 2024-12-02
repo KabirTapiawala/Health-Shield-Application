@@ -118,3 +118,40 @@ body {
   font-size: 0.9rem;
   color: #666;
 }
+
+/* Doctor Card */
+.doctor-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.doctor-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+}
+
+/* Select Button */
+.select-button {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(to right, #32b8ca, #7aa4d7); /* Gradient */
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.select-button:hover {
+  background: linear-gradient(to right, #7aa4d7, #32b8ca); /* Reverse gradient */
+  box-shadow: 0 2px 4px rgba(50, 184, 202, 0.5); /* Subtle glow */
+  transform: scale(1.05);
+}

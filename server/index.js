@@ -20,6 +20,7 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/profile', require('./routes/profile'));
 app.use('/api/doctors', require('./routes/doctorRoutes'));  // Added route for doctors
 app.use('/api/prescriptions', require('./routes/prescriptions'));
+app.use('/api/messages', require('./routes/messages')); // Add the messages route
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

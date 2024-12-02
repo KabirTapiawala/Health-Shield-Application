@@ -1,9 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Sidebar.css';
 import logo from '../assets/logo.png'; // Import the logo image
 
 function Sidebar() {
+  const navigate = useNavigate(); // Hook for navigation
+
+  const handleLogout = () => {
+    // Perform any logout-related logic here, e.g., clearing tokens
+    navigate('/'); // Redirect to the '/' route
+  };
+
   return (
     <div className="sidebar">
       <div className="sidebar-logo">
@@ -16,7 +23,7 @@ function Sidebar() {
         <li><Link to="/profile">Profile</Link></li>
         <li><Link to="/prescriptions">Prescriptions</Link></li>
       </ul>
-      <button className="logout">Logout</button>
+      <button className="logout" onClick={handleLogout}>Logout</button>
     </div>
   );
 }

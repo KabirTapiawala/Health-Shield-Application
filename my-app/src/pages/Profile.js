@@ -11,6 +11,7 @@ function Profile() {
   const [editMode, setEditMode] = useState(false); // Track if in edit mode
   const [changePasswordMode, setChangePasswordMode] = useState(false); // Track if in change password mode
   const { user } = useAuth(); // Get the user from context
+  const { login } = useAuth(); // Destructure login from useAuth
 
   // State variables for profile information
   const [profileInfo, setProfileInfo] = useState({
@@ -123,6 +124,8 @@ function Profile() {
 
       if (response.data.success) {
         console.log('Profile updated successfully');
+        console.log('user', response.data.user);
+        login(response.data.user);
       } else {
         console.error('Failed to update profile:', response.data.message);
       }
